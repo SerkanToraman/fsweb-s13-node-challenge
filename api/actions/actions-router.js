@@ -30,7 +30,7 @@ router.get('/:id',validateIdPayload,async (req,res,next)=>{
 router.post('/',validateProjectPostPayload,async(req,res,next)=>{
   try {
     const insertedAction = req.body;
-    insertedAction.project_id = 1;
+    insertedAction.project_id = 2;
     await actionModel.insert(insertedAction)
     res.json(insertedAction);
   } catch (error) {

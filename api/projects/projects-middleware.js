@@ -26,8 +26,14 @@ async function validateIdPayload (req,res,next){
 function validateProjectPostPayload (req,res,next){
   try {  
   const {name,description,completed } = req.body;
-  if (!name||!description||completed.length==0){
-    res.status(400).json({message:"Geçerli"})
+  let booleanCheck;
+  if (typeof completed === 'boolean'){
+    booleanCheck=true;
+  }else{
+    booleanCheck=false;
+  }
+  if (!name||!description||!booleanCheck){
+    res.status(400).json({message:"Gerekli alanlar eksiktir"})
   }else{
     next()
   }

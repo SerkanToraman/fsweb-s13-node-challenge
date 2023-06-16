@@ -22,7 +22,7 @@ function validateProjectPostPayload (req,res,next){
   try {  
   const {description,notes,completed } = req.body;
   if (!description||!notes||completed.length==0){
-    res.status(400).json({message:"Geçerli"})
+    res.status(400).json({message:"Gerekli alanlar eksiktir."})
   }else{
     next()
   }
