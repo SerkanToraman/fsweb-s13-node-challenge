@@ -28,9 +28,6 @@ function validateProjectPostPayload (req,res,next){
   const {name,description,completed } = req.body;
   if (!name||!description){
     res.status(400).json({message:"Gerekli alanlar eksiktir"})
-  }
-  else if(typeof (completed)!="boolean"){
-    res.status(400).json({message:"Completed kismina sadece true veya false verisi giriniz"})
   }else{
     next()
     }

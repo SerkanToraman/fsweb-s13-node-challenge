@@ -51,7 +51,7 @@ router.put('/:id',validateIdPayload,validateProjectPostPayload, async(req,res,ne
       completed:req.body.completed
     }
     const updatedProject = await projectsModel.update(req.current.id,updatedProjectBody)
-    res.status(201).json(updatedProject);
+    res.status(200).json(updatedProject);
    
   } catch (error) {
     next(error);
