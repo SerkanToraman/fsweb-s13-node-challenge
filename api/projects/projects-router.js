@@ -31,7 +31,12 @@ router.get('/:id',validateIdPayload,async (req,res,next)=>{
 //Task 3 [POST] /api/projects
 router.post('/',validateProjectPostPayload,async(req,res,next)=>{
   try {
-    const insertedProject = await projectsModel.insert(req.body)
+    const insertedProjectBody ={
+      name: req.body.name,
+      description:req.body.description,
+      completed:req.body.completed
+    }
+    const insertedProject = await projectsModel.insert(insertedProjectBody)
     res.json(insertedProject);
   } catch (error) {
     next(error);
@@ -40,7 +45,12 @@ router.post('/',validateProjectPostPayload,async(req,res,next)=>{
 //Task 4 [PUT] //api/projects/:id
 router.put('/:id',validateIdPayload,validateProjectPostPayload, async(req,res,next)=>{
   try {
-    const updatedProject = await projectsModel.update(req.current.id,req.body)
+    const updatedProjectBody ={
+      name: req.body.name,
+      description:req.body.description,
+      completed:req.body.completed
+    }
+    const updatedProject = await projectsModel.update(req.current.id,updatedProjectBody)
     res.status(201).json(updatedProject);
    
   } catch (error) {
