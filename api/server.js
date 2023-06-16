@@ -7,7 +7,8 @@
 //1 Imports
 const express = require('express');
 const server = express();
-const projectsRouter = require('./projects/projects-router')
+const projectsRouter = require('./projects/projects-router');
+const actionsRouter = require('./actions/actions-router');
 
 //2 Middlewares 
 server.use(express.json());
@@ -18,6 +19,8 @@ server.use(express.json());
 //   res.json("server deneme - basarili")
 // })
   server.use('/api/projects',projectsRouter);
+  server.use('/api/actions',
+  actionsRouter);
 
 
 
