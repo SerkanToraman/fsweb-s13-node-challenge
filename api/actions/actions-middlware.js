@@ -4,6 +4,7 @@
 // projects ara yazılımları buraya
 //imports
 const actionsModel = require('../actions/actions-model')
+const projectModel =require('../projects/projects-model')
 
 async function validateIdPayload (req,res,next){
   try {  
@@ -18,13 +19,18 @@ async function validateIdPayload (req,res,next){
   }
 }
  
-function validateProjectPostPayload (req,res,next){
+async function validateProjectPostPayload (req,res,next){
   try {  
-  const {description,notes,completed } = req.body;
-  if (!description||!notes||completed.length==0){
+  const {description,notes,project_id} = req.body;
+  if (!description||!notes||!project_id||typeof(project_id)!="number"){
     res.status(400).json({message:"Gerekli alanlar eksiktir."})
   }else{
-    next()
+    const existProject = await projectModel.get(project_id);
+    if(!existProject){
+      res.status(400).json({message:"Geçerli Id olup olmadığını kontrol ediniz"});
+    }else{
+      next()
+    }
   }
   } catch (error) {
     next(error)

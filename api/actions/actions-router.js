@@ -29,10 +29,14 @@ router.get('/:id',validateIdPayload,async (req,res,next)=>{
 //Task 3 [POST] /api/actions
 router.post('/',validateProjectPostPayload,async(req,res,next)=>{
   try {
-    const insertedAction = req.body;
-    insertedAction.project_id = 2;
+    const insertedAction = {
+      project_id: req.body.project_id,
+      description: req.body.description,
+      notes: req.body.notes,
+      completed:req.body.completed,
+    }
     await actionModel.insert(insertedAction)
-    res.json(insertedAction);
+    res.status(201).json(insertedAction);
   } catch (error) {
     next(error);
   }
@@ -41,7 +45,12 @@ router.post('/',validateProjectPostPayload,async(req,res,next)=>{
 //Task 4 [PUT] //api/actions/:id
 router.put('/:id',validateIdPayload,validateProjectPostPayload, async(req,res,next)=>{
   try {
-    const updatedActionBody = req.body;
+    const updatedActionBody = {
+      project_id: req.body.project_id,
+      description: req.body.description,
+      notes: req.body.notes,
+      completed:req.body.completed,
+    }
     updatedActionBody.project_id = 1;
     const updatedAction = await actionModel.update(req.current.id,updatedActionBody)
     res.status(201).json(updatedAction);
